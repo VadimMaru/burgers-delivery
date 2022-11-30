@@ -1,8 +1,14 @@
+import {
+    modalProduct,
+    catalogList,
+    } from './elements.js'
 
-const modalProduct = document.querySelector('.modal_product');
-const catalogList = document.querySelector('.catalog__list');
+    import { openModal } from './openModal.js';
 
-const product = {
+import { createCardProduct } from './createCardProduct.js';
+import { renderListProduct } from './renderListProduct.js';
+    
+const maxBurger = {
     title: 'Много мяса',
     price: 10000,
     weight: 5000,
@@ -18,34 +24,25 @@ const product = {
     ]
 };
 
-const modalProductTitle = document.querySelector('.modal-product__title');
-const modalProductImage = document.querySelector('.modal-product__image');
-const modalProductDescription = document.querySelector('.modal-product__description');
-const ingredientsList = document.querySelector('.ingredients__list');
-const ingredientsCalories = document.querySelector('.ingredients__calories');
-const modalProducPriceCount = document.querySelector('.modal-product__price-count');
+catalogList.textContent = '';
 
-modalProductTitle.textContent = product.title;
-modalProductImage.src = product.image;
-ingredientsCalories.textContent = product.calories;
-modalProducPriceCount.textContent = product.price;
-modalProductDescription.textContent = product.description;
-ingredientsList.textContent = '';
+const card = [
+    createCardProduct(maxBurger),
+    createCardProduct(maxBurger),
+    createCardProduct(maxBurger),
+    createCardProduct(maxBurger),
+    createCardProduct(maxBurger),
+    createCardProduct(maxBurger),
+    createCardProduct(maxBurger)
+];
 
-const ingredientsListItems = product.ingredients.map((item) => {
-    const li = document.createElement('li');
-    li.classList.add('ingredients__item');
-    li.textContent = item;
-    return li
-});
-
-ingredientsList.append(...ingredientsListItems)
+catalogList.append(...card)
 
 catalogList.addEventListener('click' , (event) => {
     const target = event.target;
     if (target.closest('.product__detail')
         || target.closest('.product__image')) {
-        modalProduct.classList.add('modal_open');
+        openModal(maxBurger)    
     }    
 });
 
@@ -57,4 +54,10 @@ modalProduct.addEventListener('click' , (event) => {
     }
     
 })
+
+const init = () => {
+    renderListProduct();
+};
+
+init();
 
